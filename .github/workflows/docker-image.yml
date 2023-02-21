@@ -20,6 +20,6 @@ jobs:
         DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
       run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag flaskappindocker:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{secrets.DOCKERHUB_USER}}/flaskappindocker:$(date +%s)
     - name: Push Dockerhub
-      run: docker push ${{secrets.DOCKERHUB_USER}}/flaskappindocker
+      run: docker push ${{secrets.DOCKERHUB_USER}}/flaskappindocker:$(date +%s)
