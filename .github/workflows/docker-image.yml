@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "master" ]
 env:
-  CURRENT_TAG: $(date +%s)
+  CURRENT_TAG: ${{date +%s}}
   DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
 jobs:
 
