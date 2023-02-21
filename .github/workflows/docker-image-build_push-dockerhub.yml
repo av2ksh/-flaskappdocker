@@ -15,14 +15,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: docker login
+    - name: dockerhub login
       env:
          DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
          DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+         DOCKERHUB_REPO: ${{secrets.DOCKERHUB_REPO}}
       run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
     - name: Set tag time
       run: echo "CURRENT_TAG=$(date +%s)" >> $GITHUB_ENV
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.DOCKERHUB_USER}}/flaskappindocker:$CURRENT_TAG
+      run: docker build . --file Dockerfile --tag ${{secrets.DOCKERHUB_USER}}/${{secrets.DOCKERHUB_REPO}}:$CURRENT_TAG
     - name: Push Dockerhub
-      run: docker push ${{secrets.DOCKERHUB_USER}}/flaskappindocker:$CURRENT_TAG
+      run: docker push ${{secrets.DOCKERHUB_USER}}/${{secrets.DOCKERHUB_REPO}}:$CURRENT_TAG
